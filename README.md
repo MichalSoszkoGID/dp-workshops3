@@ -66,7 +66,7 @@ git config --global user.name "John Doe"
 <img src="https://user-images.githubusercontent.com/97670480/192238482-59abc646-1b0f-469d-b0d6-ee02d6c1e100.png"  width="60%" height="60%">
 ---
 
-## Deploy your project to stage-dev
+## Deploy your project to stage-dev and monitor pipeline in Airflow
 
 Having the CI/CD succesfully completed means the DAG has been created without failures and it has been automaticaly sent to the composer. In order to track your project DAG in Airflow enter the following link: https://58a6f530618c49558667b865f21ac64a-dot-europe-central2.composer.googleusercontent.com/home and locate your project.
 
