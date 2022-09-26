@@ -191,4 +191,26 @@ models:
         - most_recent_order_date
 ```
 
+3. Custom singular test
 
+In the following example we compare `order_items` an `users` staging models to test whether there are users who have purchased items but have no defined user account. If the test fails - this would for example - indicate there is users data missing or there might have been some fake transactions present. So - this is more business oriented assertion than the previously described generic tests.
+
+Navigate to `tests` folder and create `assert_the_list_of_users_who_purchased_item_and_have_no_user_account_is_empty.sql` file that contains the following code:
+
+```
+-- If this test fail it means not all users who have purchased any item has created their user account
+
+with customers_who_purchased_items as (
+  select 
+    distinct user_id 
+  from {{ ref('stg_ecommerce__order_items') }}
+),
+customers_who_created_user_account as (
+  select 
+    distinct user_id
+  from {{ ref('stg_ecommerce__users')}}
+)
+select * from customers_who_purchased_items
+except distinct
+select * from customers_who_created_user_account
+```
