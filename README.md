@@ -80,7 +80,7 @@ Now, you can monitor execution of your pipeline. With the project of our size it
 
 ## Add dbt tests to your project
 
-Tests are utterly important part of any data pipeline. In theory, if the code is right, data should be also correct. However, even for easy pipelines, subsequent and continuous code modification, adding new sources, changes in business logic etc. greatly increases risk of duplication, nullification, incorrect aggregations, and as result - greatly affecting the analytics (in a negatie way). In this excercise you will add three types of tests to your local development instance of dbt and then transfer them into Airflow. 
+Tests are utterly important part of any data pipeline. In theory, if the code is right, data should be also correct. However, even for easy pipelines, subsequent and continuous code modification, adding new sources, changes in business logic etc. greatly increases risk of duplication, nullification, incorrect aggregations, and as result - greatly affects the analytics (in a negatie way). In this excercise you will add three types of tests to your local development instance of dbt and then transfer them into Airflow. 
 
 Your task is to add:
 
