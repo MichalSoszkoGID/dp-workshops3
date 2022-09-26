@@ -77,3 +77,9 @@ In DAGs folder click on your project and manualy trigger the run (the DAG schedu
 <img src="https://user-images.githubusercontent.com/97670480/192253627-b3be7169-44c1-43d0-bff1-a0c93f90f6c4.png"  width="60%" height="60%">
 
 Now, you can monitor execution of your pipeline. With the project of our size it should take ca. 10 minutes.
+
+## Add dbt tests to your project
+
+Tests are utterly important part of any data pipeline. In theory, if the code is right, data should be also correct. However, even for easy pipelines, subsequent and continuous code modification, adding new sources, changes in business logic etc. greatly increases risk of duplication, nullification, incorrect aggregations, and as result - greatly affecting the analytics (in a negatie way). In this excercise you will add three types of tests to your local development instance of dbt and then transfer them into Airflow. Your task is to 
+
+
