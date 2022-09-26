@@ -107,7 +107,7 @@ If your pipeline finishes run on staging-dev with "all green" try and play aroun
 
 ### Adding tests - examples
 
-In this chapter we'd like to provide couple of examples on how to implement tests descrubed in the exercise. Note that we will use here the models created during Session 2 Excercises. If you need to catch-up please refer to the following repository: <link>. This repository stores the complete dbt project example created so far durinf Session 2 demonstration and hands-on excercises, feel free to copy-paste models into your local instance of dbt if you need.
+In this chapter we'd like to provide couple of examples on how to implement tests descrubed in the exercise. Note that we will use here the models created during Session 2 Excercises. If you need to catch-up please refer to [the following repository](https://gitlab.com/datamass-mdp-workshop/msoszko-datamass-project/-/tree/Session-2-updated-hands-on-results). This repository stores the complete dbt project example created so far during Session 2 demonstration and hands-on excercises, feel free to copy-paste models into your local instance of dbt if you need.
 
 1. Core generic test.
 
