@@ -105,11 +105,11 @@ We encourage you to try this task on your own. However, if you'd like to follow 
 
 If your pipeline finishes run on staging-dev with "all green" try and play around with tests, making them to fail badly! For that you can brak your models, modify tests logic (esp. for singular tests), narrow test boundary conditions etc, but please, do not modify the raw tables! Don't forget to publish your buggy code and run it on airflow.
 
-### Adding tests - examples
+## Solutions
 
 In this chapter we'd like to provide couple of examples on how to implement tests descrubed in the exercise. Note that we will use here the models created during Session 2 Excercises. If you need to catch-up please refer to [the following repository](https://gitlab.com/datamass-mdp-workshop/msoszko-datamass-project/-/tree/Session-2-updated-hands-on-results). This repository stores the complete dbt project example created so far during Session 2 demonstration and hands-on excercises, feel free to copy-paste models into your local instance of dbt if you need.
 
-1. Core generic test.
+### Core generic test.
 
 Edit `models/staging/ecommerce/stg_ecommerce__users.yml` file and add the following snippets of code:
 ```
@@ -132,7 +132,7 @@ models:
               values: ['example.com', 'example.org', 'example.net'] 
  ```
  ```
-       - name: user_address_country
+      - name: user_address_country
         description: ""
         tests:
           - relationships: # The test fail if there is no connection between tested column and the referenced dbt object
@@ -140,7 +140,7 @@ models:
               field: Country
 ```
 
-2. Package-sourced tests.
+### Package-sourced tests.
 
 Inspect the `packages.yml` file and verify whether there is a following package: `catalogica/dbt_expectations` present, if not, upgrade the config file and run command `dbt seed`:
 ```
@@ -191,7 +191,7 @@ models:
         - most_recent_order_date
 ```
 
-3. Custom singular test
+### Custom singular test
 
 In the following example we compare `order_items` an `users` staging models to test whether there are users who have purchased items but have no defined user account. If the test fails - this would for example - indicate there is users data missing or there might have been some fake transactions present. So - this is more business oriented assertion than the previously described generic tests.
 
