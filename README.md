@@ -80,6 +80,32 @@ Now, you can monitor execution of your pipeline. With the project of our size it
 
 ## Add dbt tests to your project
 
-Tests are utterly important part of any data pipeline. In theory, if the code is right, data should be also correct. However, even for easy pipelines, subsequent and continuous code modification, adding new sources, changes in business logic etc. greatly increases risk of duplication, nullification, incorrect aggregations, and as result - greatly affecting the analytics (in a negatie way). In this excercise you will add three types of tests to your local development instance of dbt and then transfer them into Airflow. Your task is to 
+Tests are utterly important part of any data pipeline. In theory, if the code is right, data should be also correct. However, even for easy pipelines, subsequent and continuous code modification, adding new sources, changes in business logic etc. greatly increases risk of duplication, nullification, incorrect aggregations, and as result - greatly affecting the analytics (in a negatie way). In this excercise you will add three types of tests to your local development instance of dbt and then transfer them into Airflow. 
 
+Your task is to add:
+
+- at least 1 core generic dbt test from the list: [`unique`, `not_null`, `accepted_values`, `relationships`]
+
+>-> Hint: You can test whatever dbt resource (model, seed, snapshot) you want, keep in mind, that the utlimate goal is to serve data mart models of highest quality. Thus apart from engineering tests like not_null, unique it is good to apply more business related checks as well.
+
+- at least 1 package-offered generic dbt test using one of the following dbt packages: dbt_expectations, dbt_utils
+
+>-> Hint: Tests offered by external packages are more soffisticated and offer greater usability. If you know your data well, you will also know what kind of records it is not supposed to return and what kind of logic relations (or statistic divergence) is not allowed.
+
+- at least 1 custom (singular) test.
+
+>-> Hint: Finally, if you haven't found the generic tests that answer your needs, you can create the test of your own. This is especially helpfull when you want to design a business-oriented data quality check. Ie, if you are sure your timeseries data cannot follow a specific trend (let's say - it is nearly impossible to recieve 90 % loss in revenue for a specific period of time), then you can create an assertion in dbt that monitors that. Just remember - test fails whenever there are any records returned by the test query, so if your tests is about counting records... it will always fail!
+
+>-> Hint: After you configure your `yml` files to contain recipes for tests don't forget to execute the `dbt test` command and check whether they run as as intended. 
+
+After you've implemented the tests on your local dbt instance you will need to deploy your code to the remote repository and trigger the CI/CD + Airflow pipelines. 
+We encourage you to try this task on your own. However, if you'd like to follow our solution example, please continue to the next chapter!
+
+### Bonus Excercise ###
+
+If your pipeline finishes run on staging-dev with "all green" try and play around with tests, making them to fail badly! For that you can brak your models, modify tests logic (esp. for singular tests), narrow test boundary conditions etc.
+
+### Adding tests - examples
+
+In this chapter we'd like to provide couple of examples on how to implement tests descrubed in the exercise. Note that we will use here the models created during Session 2 Excercises. If you need to catch-up please refer to the following repository: <link>. This repository stores the complete dbt project example created so far durinf Session 2 demonstration and hands-on excercises, feel free to copy-paste models into your local instance of dbt if you need.
 
