@@ -154,10 +154,12 @@ packages:
   - git: "https://github.com/getindata/dbt-common-macros/"
 ```
 
-Create config yaml file for the `dim_users` model in `models/mart/marketing` folder and insert the following snippet of code:
+Create config yaml file for the `dim_users` model in `models/mart/marketing` folder.
 >-> Hint: you can also use `dbt-labs/codegen` package to quickly create yaml file:
+
 > dbt run-operation generate_model_yaml --args '{"model_name": "dim_users"}'
 
+Insert the following snippet of code (in this test dbt will check whether columns in the dim_users model match the ordered list we have prepared, this is very usefull whenever we need additional support for controling on what kind of data we present in the data mart layer):
 ```
 version: 2
 
