@@ -66,11 +66,14 @@ git config --global user.name "John Doe"
 <img src="https://user-images.githubusercontent.com/97670480/192238482-59abc646-1b0f-469d-b0d6-ee02d6c1e100.png"  width="60%" height="60%">
 ---
 
-**Step 6.**
-Having the CI/CD succesfully completed means the DAG has been created without failures and it has been sent to the composer. In order to track your project DAG in Airflow enter the following link: https://58a6f530618c49558667b865f21ac64a-dot-europe-central2.composer.googleusercontent.com/home and locate your project.
+## Deploy your project to stage-dev
+
+Having the CI/CD succesfully completed means the DAG has been created without failures and it has been automaticaly sent to the composer. In order to track your project DAG in Airflow enter the following link: https://58a6f530618c49558667b865f21ac64a-dot-europe-central2.composer.googleusercontent.com/home and locate your project.
 
 >-> Hint: It can take few minutes between succesfull CI/CD fun and Airflow DAG import. Do not worry, it is going to be there in not time!
 
 In DAGs folder click on your project and manualy trigger the run (the DAG schedule time has been set up during project initialization, the default value for most project is `0 12 * * *`)
 
 <img src="https://user-images.githubusercontent.com/97670480/192253627-b3be7169-44c1-43d0-bff1-a0c93f90f6c4.png"  width="60%" height="60%">
+
+Now, you can monitor execution of your pipeline. With the project of our size it should take ca. 10 minutes.
