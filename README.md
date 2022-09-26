@@ -103,9 +103,90 @@ We encourage you to try this task on your own. However, if you'd like to follow 
 
 ### Bonus Excercise ###
 
-If your pipeline finishes run on staging-dev with "all green" try and play around with tests, making them to fail badly! For that you can brak your models, modify tests logic (esp. for singular tests), narrow test boundary conditions etc.
+If your pipeline finishes run on staging-dev with "all green" try and play around with tests, making them to fail badly! For that you can brak your models, modify tests logic (esp. for singular tests), narrow test boundary conditions etc, but please, do not modify the raw tables! Don't forget to publish your buggy code and run it on airflow.
 
 ### Adding tests - examples
 
 In this chapter we'd like to provide couple of examples on how to implement tests descrubed in the exercise. Note that we will use here the models created during Session 2 Excercises. If you need to catch-up please refer to the following repository: <link>. This repository stores the complete dbt project example created so far durinf Session 2 demonstration and hands-on excercises, feel free to copy-paste models into your local instance of dbt if you need.
+
+1. Core generic test.
+
+Edit `models/staging/ecommerce/stg_ecommerce__users.yml` file and add the following snippets of code:
+```
+version: 2
+
+models:
+  - name: stg_ecommerce__users
+    description: ""
+    columns:
+      - name: user_id
+        description: ""
+        tests:
+          - unique # This test fails whenever there are duplicated rows in the column
+          - not_null # This test fails if there are null values present
+
+      - name: user_email_domain
+        description: ""
+        tests:
+          - accepted_values: # This test fails whenever encounters records other than enliset below
+              values: ['example.com', 'example.org', 'example.net'] 
+ ```
+ ```
+       - name: user_address_country
+        description: ""
+        tests:
+          - relationships: # The test fail if there is no connection between tested column and the referenced dbt object
+              to: ref('ISO_like_Countries-Continents')
+              field: Country
+```
+
+2. Package-sourced tests.
+
+Inspect the `packages.yml` file and verify whether there is a following package: `catalogica/dbt_expectations` present, if not, upgrade the config file and run command `dbt seed`:
+```
+packages:
+  - package: dbt-labs/dbt_utils
+    version: 0.8.0
+  - package: calogica/dbt_expectations
+    version: [ ">=0.5.0", "<0.6.0" ]
+  - package: dbt-labs/codegen
+    version: 0.6.0
+  - git: "https://github.com/getindata/dbt-common-macros/"
+```
+
+Create config yaml file for the `dim_users` model in `models/mart/marketing` folder and insert the following snippet of code:
+>-> Hint: you can also use `dbt-labs/codegen` package to quickly create yaml file:
+> dbt run-operation generate_model_yaml --args '{"model_name": "dim_users"}'
+
+```
+version: 2
+
+models:
+  - name: dim_users
+    description: ""
+    tests:
+    - dbt_expectations.expect_table_columns_to_match_ordered_list:
+        column_list: 
+        - user_id
+        - user_age
+        - user_gender
+        - user_email_domain
+        - user_address_postal_code
+        - user_address_city
+        - user_address_country
+        - user_address_continent
+        - total_traffic
+        - first_event
+        - most_recent_event
+        - adwords_traffic
+        - email_traffic
+        - facebook_traffic
+        - organic_traffic
+        - youtube_traffic
+        - clv
+        - order_cnt
+        - first_order_date
+        - most_recent_order_date
+```
+
 
